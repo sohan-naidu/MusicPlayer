@@ -6,6 +6,13 @@ public class Node{
     private Node next;
     private Node previous;
 
+    public Node(Song song, Node next, Node previous)
+    {
+        this.song = song;
+        this.next = next;
+        this.previous = previous;
+    }
+
     public void setSong(Song song)
     {
         this.song = song;
@@ -36,14 +43,5 @@ public class Node{
     {
         return previous;
     }
-
-    public Node createNode(Song song, Node next, Node previous)
-    {
-        Node temp = new Node();
-        temp.setSong(song);
-        temp.setNextSong(next);
-        temp.setPreviousSong(previous);
-        return temp;
-    } 
     
 }

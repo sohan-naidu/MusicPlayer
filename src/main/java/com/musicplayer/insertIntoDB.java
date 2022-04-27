@@ -16,7 +16,7 @@ public class insertIntoDB
     public static void main(String args[]) throws IOException
     {
 
-        byte[] bytes = Files.readAllBytes(Paths.get("C:\\Users\\Sohan\\Downloads\\Far Away.mp3"));
+        byte[] bytes = Files.readAllBytes(Paths.get("C:\\Users\\Sohan\\Downloads\\Take Me Back.mp3"));
 
         Connection conn = null;
         try
@@ -24,9 +24,9 @@ public class insertIntoDB
             conn = DriverManager.getConnection(url, user, password);
             String sql = "insert into songs(title, artist, duration, song) values(?, ?, ?, ?)";
             PreparedStatement state = conn.prepareStatement(sql);
-            state.setString(1, "Far Away");
-            state.setString(2, "Sworn");
-            state.setString(3, "1:47");
+            state.setString(1, "Take Me Back");
+            state.setString(2, "WYS");
+            state.setString(3, "2:56");
             state.setBytes(4, bytes);
             state.executeUpdate();
             System.out.println("Inserted");

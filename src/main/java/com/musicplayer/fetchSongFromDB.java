@@ -15,10 +15,11 @@ public class fetchSongFromDB {
     private final static String url = "jdbc:postgresql://localhost/musicplayer";
     private final static String user = "postgres";
     private final static String password = "password";
+    Song song;
 
-    public void fetch(String songID)
+    public Song fetch(String songID)
     {
-
+        
         Connection conn = null;
         try
         {
@@ -27,6 +28,7 @@ public class fetchSongFromDB {
             PreparedStatement state = conn.prepareStatement(sql);
             state.setInt(1, Integer.parseInt(songID));
             ResultSet res = state.executeQuery();
+            
             while(res.next())
             {
                 String id = res.getString("id");
@@ -34,8 +36,8 @@ public class fetchSongFromDB {
                 String artist = res.getString("artist");
                 String duration = res.getString("duration");
                 byte[] bytes = res.getBytes("song");
-                Song song = new Song();
-                //song.createSong(id, title, artist, duration);
+                //song = song.createSong(id, title, artist, duration);
+                song = new Song(id, title, artist, duration);
                 Path path = Paths.get("C:\\Study\\Third Year\\Object Oriented Development with Java\\Project\\Final\\src\\main\\java\\com\\musicplayer\\cursong.mp3");
                 try {
                     Files.write(path, bytes);
@@ -43,13 +45,20 @@ public class fetchSongFromDB {
                     e.printStackTrace();
                 }
                 System.out.println("Fetched song " + title);
+
+                
             }
+
+            
         }
 
         catch (SQLException e)
         {
             System.out.println(e.getMessage());
         }
+        
+
+        return song;
 
     }
 }

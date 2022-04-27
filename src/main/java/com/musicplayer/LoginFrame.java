@@ -1,3 +1,5 @@
+package com.musicplayer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,9 @@ public class LoginFrame extends JFrame implements ActionListener {
     JTextField userTextField = new JTextField();
     JPasswordField passwordField = new JPasswordField();
     JButton loginButton = new JButton("LOGIN");
-    JButton resetButton = new JButton("RESET");
+    JButton resetButton = new JButton("REGISTER");
     JCheckBox showPassword = new JCheckBox("Show Password");
+    JFrame frame = new JFrame();
 
     LoginFrame() {
         setLayoutManager();
@@ -45,6 +48,18 @@ public class LoginFrame extends JFrame implements ActionListener {
         container.add(showPassword);
         container.add(loginButton);
         container.add(resetButton);
+        
+
+        frame.add(container);
+
+        frame.setTitle("Login Form");
+        frame.setBackground(Color.white);
+        //frame.setSize(800, 600);
+        frame.setBounds(10, 10, 370, 600);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
     }
 
     public void addActionEvent() {
@@ -53,23 +68,36 @@ public class LoginFrame extends JFrame implements ActionListener {
         showPassword.addActionListener(this);
     }
 
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginButton) {
-            String userText;
-            String pwdText;
+
+        if(e.getSource().equals(loginButton))
+        {
+            String userText, pwdText;
             userText = userTextField.getText();
-            pwdText = passwordField.getText();
-            if (userText.equalsIgnoreCase("mehtab") && pwdText.equalsIgnoreCase("12345")) {
-                JOptionPane.showMessageDialog(this, "Login Successful");
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+            pwdText = String.valueOf(passwordField.getPassword());
+            System.out.println(pwdText);
+            //Auth auth = new Auth();
+            boolean ok = Auth.auth(userText, pwdText);
+            if(ok)
+            {
+                System.out.println("OK");
+                frame.dispose();
+                new initMusicPlayer();
             }
 
+            else
+            {
+                System.out.println("User doesnt exist or credentials wrong");
+                JOptionPane.showMessageDialog(this, "User doesnt exist or credentials wrong");
+            }
+            
         }
         if (e.getSource() == resetButton) {
-            userTextField.setText("");
-            passwordField.setText("");
+            frame.dispose();
+            new UserRegistration().initURUI();
         }
         if (e.getSource() == showPassword) {
             if (showPassword.isSelected()) {
@@ -79,19 +107,12 @@ public class LoginFrame extends JFrame implements ActionListener {
             }
 
         }
+
+
     }
 
+
+    
+       
+
 }
-
-// public class Login {
-// public static void main(String[] a) {
-// LoginFrame frame = new LoginFrame();
-// frame.setTitle("Login Form");
-// frame.setVisible(true);
-// frame.setBounds(10, 10, 370, 600);
-// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-// frame.setResizable(false);
-
-// }
-
-// }

@@ -78,5 +78,6 @@ public class temp{
     //Iterator Behav
     //Null Behav
     //private class Structural
+    //Interceptor
 
 }

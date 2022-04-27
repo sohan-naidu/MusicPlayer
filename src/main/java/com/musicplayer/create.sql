@@ -6,3 +6,14 @@ create table if not exists songs
     duration varchar(255) not null,
     song bytea not null
 );
+
+
+create table authentication
+(
+    username varchar(255) primary key,
+    pwd varchar(255) not null,
+    firstname varchar(255) not null,
+    lastname varchar(255) not null,
+    email varchar(255) not null,
+    phone varchar(255) not null
+);
